@@ -55,7 +55,7 @@ echo "   mise: $(mise --version 2>/dev/null | head -1)"
 # ── 4. 通过 mise 安装所有工具 ──────────────────────────────────────────────────
 echo "▶ [4/7] 通过 mise 安装工具..."
 echo "   运行时: Node.js 24, Python 3.12, Java 21, Go latest"
-echo "   CLI 工具: sheldon, zoxide, eza, bat, ripgrep, opencode, starship"
+echo "   CLI 工具: sheldon, zoxide, eza, bat, ripgrep, neovim, opencode, starship"
 
 # 先复制 mise/config.toml 使其生效
 mkdir -p "$HOME/.config/mise"
@@ -73,19 +73,14 @@ echo "   go:      $(go version 2>/dev/null || echo '✗')"
 echo "   eza:     $(eza --version 2>/dev/null | head -1 || echo '✗')"
 echo "   bat:     $(bat --version 2>/dev/null || echo '✗')"
 echo "   rg:      $(rg --version 2>/dev/null | head -1 || echo '✗')"
+echo "   nvim:    $(nvim --version 2>/dev/null | head -1 || echo '✗')"
 echo "   starship: $(starship --version 2>/dev/null | head -1 || echo '✗')"
 
-# ── 5. 安装 NvChad (Neovim) ───────────────────────────────────────────────────
-echo "▶ [5/8] 安装 Neovim + NvChad..."
-if ! command -v nvim &>/dev/null; then
-    sudo add-apt-repository ppa:neovim-ppa/unstable -y
-    sudo apt install -y neovim
-fi
-echo "   nvim: $(nvim --version 2>/dev/null | head -1)"
-
+# ── 5. 安装 NvChad (Neovim 配置) ────────────────────────────────────────────────
+echo "▶ [5/8] 安装 NvChad..."
 if [ ! -d "$HOME/.config/nvim" ]; then
     git clone https://github.com/NvChad/starter ~/.config/nvim
-    echo "   NvChad starter 已克隆，首次启动 nvim 会自动完成安装"
+    echo "   NvChad starter 已克隆，首次启动 nvim 会自动完成插件安装"
 else
     echo "   NvChad 已存在"
 fi
