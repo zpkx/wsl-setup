@@ -107,8 +107,8 @@ echo "   eza: 使用终端默认配色，与 Catppuccin Mocha 自动适配"
 # ── 9. 配置 NvChad 主题 ───────────────────────────────────────────────────────
 echo "▶ [9/10] 配置 NvChad 主题..."
 mkdir -p "$HOME/.config/nvim/lua"
-cp "$DOTFILES/nvim/chadrc.lua" "$HOME/.config/nvim/lua/chadrc.lua"
-echo "   nvim/chadrc.lua → ~/.config/nvim/lua/chadrc.lua (catppuccin_mocha)"
+cp "$DOTFILES/nvim/lua/chadrc.lua" "$HOME/.config/nvim/lua/chadrc.lua"
+echo "   nvim/lua/chadrc.lua → ~/.config/nvim/lua/chadrc.lua (catppuccin)"
 
 # ── 10. 配置 .zshrc ────────────────────────────────────────────────────────────
 echo "▶ [10/10] 配置 .zshrc..."
