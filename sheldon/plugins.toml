@@ -1,0 +1,20 @@
+shell = "zsh"
+
+[plugins]
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+use = ["{{ name }}.zsh"]
+
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+
+[plugins.omz-plugins]
+github = "ohmyzsh/ohmyzsh"
+dir = "plugins"
+use = ["{common-aliases,git}/*.plugin.zsh"]
+
+[plugins.omz-lib]
+github = "ohmyzsh/ohmyzsh"
+dir = "lib"
+use = ["history.zsh"]
