@@ -2,6 +2,43 @@
 
 > WSL2 + Zsh + mise + Starship + NvChad — 一站式开发环境 dotfiles
 
+## 快速开始
+
+### Windows 侧（仅首次或重装后）
+
+以管理员身份打开 PowerShell，执行：
+
+```powershell
+git clone git@github.com:zpkx/wsl-setup.git C:\wsl-setup
+cd C:\wsl-setup
+.\bootstrap.ps1
+```
+
+自动完成：WSL2 + Ubuntu 24.04 安装 → Warp 终端安装 → Maple Mono 字体安装。
+
+### WSL 侧
+
+进入 WSL，执行：
+
+```bash
+git clone git@github.com:zpkx/wsl-setup.git ~/wsl-setup
+cd ~/wsl-setup
+chmod +x bootstrap.sh && ./bootstrap.sh
+```
+
+自动完成：系统更新 → Zsh → mise → 全部运行时和 CLI 工具 → NvChad → Sheldon 插件 → Starship 主题 → bat 主题 → `.zshrc`。
+
+### 手动收尾
+
+```bash
+nvim                  # NvChad 自动安装插件
+exec zsh              # 加载新配置
+```
+
+然后在 Warp 中设置字体：`Settings` → `Appearance` → `Font` → **Maple Mono**，并在 `.zshrc` 中补回 `GITHUB_TOKEN` 等敏感环境变量。
+
+---
+
 ## 环境概况
 
 - **系统**: WSL2 (Ubuntu 24.04)
@@ -10,24 +47,6 @@
 - **编辑器**: Neovim（通过 NvChad 框架管理）
 
 ---
-
-## 快速开始
-
-```bash
-# 克隆本仓库
-git clone git@github.com:zpkx/wsl-setup.git ~/wsl-setup
-cd ~/wsl-setup
-
-# WSL 侧一键配置
-chmod +x bootstrap.sh && ./bootstrap.sh
-```
-
-Windows 侧前置准备（以管理员身份运行 PowerShell）：
-
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-.\bootstrap.ps1
-```
 
 ---
 
@@ -349,9 +368,7 @@ for i in $(seq 1 5); do /usr/bin/time -f '%e seconds' zsh -i -c exit 2>&1; done
 
 ---
 
-## 10. 目录结构与恢复
-
-### 目录结构
+## 10. 目录结构
 
 ```
 .
@@ -359,6 +376,7 @@ for i in $(seq 1 5); do /usr/bin/time -f '%e seconds' zsh -i -c exit 2>&1; done
 ├── bootstrap.sh          # WSL 侧：apt / zsh / mise / 全部配置
 ├── .zshrc                # Zsh 配置文件
 ├── starship.toml         # Starship 提示符配置
+├── README.md             # 本文档
 ├── bat/
 │   └── config            # bat 主题配置（Catppuccin Mocha）
 ├── nvim/
@@ -369,54 +387,3 @@ for i in $(seq 1 5); do /usr/bin/time -f '%e seconds' zsh -i -c exit 2>&1; done
 └── mise/
     └── config.toml       # mise 运行时与工具配置
 ```
-
-### 恢复步骤
-
-**第一步 — 恢复 Windows 侧环境**
-
-以管理员身份打开 PowerShell，执行：
-
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-.\bootstrap.ps1
-```
-
-此脚本会自动：
-- 安装/更新 WSL2 + Ubuntu 24.04
-- 安装 Warp 终端
-- 安装 Maple Mono Nerd Font 字体
-
-**第二步 — 进入 WSL 恢复 WSL 侧环境**
-
-```bash
-# 进入 WSL
-wsl -d Ubuntu-24.04
-
-# 进入仓库目录（从 GitHub 克隆或从 vault 复制）
-cd ~/wsl-setup
-
-# 执行恢复脚本
-chmod +x bootstrap.sh && ./bootstrap.sh
-```
-
-此脚本会自动：
-1. 系统更新（`apt update && apt upgrade`）
-2. 安装 Zsh
-3. 安装 mise
-4. 通过 mise 安装所有运行时和 CLI 工具
-5. 克隆 NvChad starter 配置
-6. 复制 Sheldon 插件配置
-7. 复制 Starship 提示符配置
-8. 复制 bat 主题配置（Catppuccin Mocha）
-9. 复制 NvChad 主题配置（catppuccin）
-10. 复制 `.zshrc`
-11. 设置 Zsh 为默认 Shell
-
-**第三步 — 手动收尾**
-
-- 打开 nvim，NvChad 会自动完成插件安装：`nvim`
-- 重启 WSL 终端或执行 `exec zsh`
-- 在 Warp 中设置字体：`Settings` → `Appearance` → `Font` → **Maple Mono**
-- 在 `.zshrc` 中补回 `GITHUB_TOKEN` 等敏感环境变量
-- 运行 `sheldon lock` 生成插件锁定文件
-- 运行性能测试确认启动速度
