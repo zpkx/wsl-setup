@@ -97,8 +97,15 @@ mkdir -p "$HOME/.config"
 cp "$STARSHIP_SRC" "$HOME/.config/starship.toml"
 echo "   starship.toml → ~/.config/starship.toml"
 
-# ── 8. 配置 .zshrc ────────────────────────────────────────────────────────────
-echo "▶ [8/8] 配置 .zshrc..."
+# ── 8. 配置 bat 主题 ──────────────────────────────────────────────────────────
+echo "▶ [8/9] 配置 bat 主题..."
+mkdir -p "$HOME/.config/bat"
+cp "$DOTFILES/bat/config" "$HOME/.config/bat/config"
+echo "   bat/config → ~/.config/bat/config (Catppuccin Mocha)"
+echo "   eza: 使用终端默认配色，与 Catppuccin Mocha 自动适配"
+
+# ── 9. 配置 .zshrc ────────────────────────────────────────────────────────────
+echo "▶ [9/9] 配置 .zshrc..."
 cp "$ZSHRC_SRC" "$HOME/.zshrc"
 echo "   .zshrc → ~/.zshrc"
 

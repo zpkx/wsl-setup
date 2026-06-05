@@ -1,0 +1,4 @@
+# bat 配置文件
+# 主题列表: bat --list-themes
+
+--theme="Catppuccin Mocha"
