@@ -57,18 +57,22 @@ if (-not $warpInstalled) {
 Write-Host "▶ [3/4] 安装 Maple Mono Nerd Font..." -ForegroundColor Green
 
 $fontDir = "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
-$fontName = "MapleMono-NF-Condensed.ttf"
+$zipName = "MapleMonoNormal-NF-CN-unhinted.zip"
 
-if (-not (Test-Path "$fontDir\$fontName")) {
+# 检查是否已安装（按文件名前缀匹配）
+$installed = (Get-ChildItem "$fontDir\MapleMono*" -ErrorAction SilentlyContinue).Count -gt 0
+
+if (-not $installed) {
     Write-Host "   下载 Maple Mono 字体..." -ForegroundColor Gray
 
     # 从 GitHub Releases 获取最新版
-    $releases = "https://api.github.com/repos/subframe7536/Maple-font/releases/latest"
+    $releasesApi = "https://api.github.com/repos/subframe7536/maple-font/releases/latest"
     try {
-        $tag = (Invoke-RestMethod $releases).tag_name
-        $downloadUrl = "https://github.com/subframe7536/Maple-font/releases/download/$tag/MapleMono-NF-Condensed.zip"
-        $zipPath = "$env:TEMP\MapleMono-NF-Condensed.zip"
+        $tag = (Invoke-RestMethod $releasesApi).tag_name
+        $downloadUrl = "https://github.com/subframe7536/maple-font/releases/download/$tag/$zipName"
+        $zipPath = "$env:TEMP\$zipName"
 
+        Write-Host "   下载: $downloadUrl" -ForegroundColor Gray
         Invoke-WebRequest -Uri $downloadUrl -OutFile $zipPath -UseBasicParsing
 
         # 解压
@@ -77,12 +81,12 @@ if (-not (Test-Path "$fontDir\$fontName")) {
         Expand-Archive -Path $zipPath -DestinationPath $tempExtract
 
         # 安装字体
-        $ttfFiles = Get-ChildItem -Path $tempExtract -Recurse -Filter "*.ttf"
+        $fontFiles = Get-ChildItem -Path $tempExtract -Recurse -Include "*.ttf", "*.otf"
         if (-not (Test-Path $fontDir)) {
             New-Item -ItemType Directory -Force -Path $fontDir | Out-Null
         }
 
-        foreach ($fontFile in $ttfFiles) {
+        foreach ($fontFile in $fontFiles) {
             $dest = "$fontDir\$($fontFile.Name)"
             Copy-Item -Path $fontFile.FullName -Destination $dest -Force
             # 注册字体到注册表
@@ -97,7 +101,7 @@ if (-not (Test-Path "$fontDir\$fontName")) {
         Write-Host "   Maple Mono Nerd Font 安装完成" -ForegroundColor Gray
     } catch {
         Write-Host "   ⚠ 自动下载失败，请手动下载安装:" -ForegroundColor Yellow
-        Write-Host "      https://github.com/subframe7536/Maple-font/releases" -ForegroundColor Yellow
+        Write-Host "      https://github.com/subframe7536/maple-font/releases/latest" -ForegroundColor Yellow
     }
 } else {
     Write-Host "   Maple Mono 字体已安装" -ForegroundColor Gray
