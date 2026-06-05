@@ -33,8 +33,8 @@ if ($LASTEXITCODE -eq 0) {
     Write-Host "   WSL 已安装，检查更新..." -ForegroundColor Gray
     wsl --update
 } else {
-    Write-Host "   安装 WSL2 + Ubuntu..." -ForegroundColor Gray
-    wsl --install -d Ubuntu
+    Write-Host "   安装 WSL2 + Ubuntu 24.04..." -ForegroundColor Gray
+    wsl --install -d Ubuntu-24.04
 }
 
 Write-Host "   WSL 版本:" (wsl --version 2>$null | Select-Object -First 1) -ForegroundColor Gray
@@ -116,7 +116,7 @@ Write-Host "  1. 打开 Warp → Settings → Appearance → Font → 选择 Map
 Write-Host "     Features → WSL → 启用 WSL 集成，默认 Shell 设为 Zsh"
 Write-Host ""
 Write-Host "  2. 进入 WSL，运行 bootstrap.sh 完成 WSL 侧配置:"
-Write-Host "     wsl -d Ubuntu"
+Write-Host "     wsl -d Ubuntu-24.04"
 Write-Host '     cd /mnt/e/SynologyDrive/Obsidian\ Vault/Software/Windows/dotfiles'
 Write-Host "     chmod +x bootstrap.sh && ./bootstrap.sh"
 Write-Host ""
